@@ -3,6 +3,11 @@ package lists.arraylist;
 import lists.MyList;
 import java.util.Arrays;
 
+/**
+ * Implementation of the Java ArrayList data structure
+ *
+ * Note: Does not allow for null values
+ * */
 public class MyArrayList<E> implements MyList<E> {
     private static final int DEFAULT_SIZE = 0;
     private static final int DEFAULT_CAPACITY = 10;
@@ -42,7 +47,7 @@ public class MyArrayList<E> implements MyList<E> {
 
     @SuppressWarnings("unchecked")
     private void increaseCapacity() {
-        if (this.size < capacity) { return; }
+        if (this.size < this.capacity) { return; }
 
         this.capacity *= 2;
         E[] temp = (E[])(new Object[this.capacity]);

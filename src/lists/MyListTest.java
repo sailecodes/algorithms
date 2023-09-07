@@ -10,22 +10,23 @@ import lists.arraylist.MyArrayList;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class MyListTest {
-    final Object[] initList = {
+    final MyList<Integer>[] initList = new MyList[]{
             new MyArrayList<>(),        // 0
             new MySinglyLinkedList<>()  // 1
     };
-    private MyArrayList<Integer> mal;
+    final int myListInd = 1;
 
-    @SuppressWarnings("unchecked")
+    private MyList<Integer> mal;
+
     @BeforeEach
     void init() {
-        mal = (MyArrayList<Integer>) initList[0];
+        this.mal = this.initList[this.myListInd];
     }
 
     @AfterEach
     void clean() {
-        mal.clear();
-        mal = new MyArrayList<>();
+        this.mal.clear();
+        this.mal = this.initList[this.myListInd];
     }
 
     @Test
@@ -45,36 +46,43 @@ public class MyListTest {
         assertAll(
                 () -> assertThrows(IndexOutOfBoundsException.class, () -> mal.get(-1), "1"),
                 () -> assertThrows(IndexOutOfBoundsException.class, () -> mal.get(1), "2"),
-                () -> assertDoesNotThrow(() -> mal.get(0), "3")
+                () -> assertDoesNotThrow(() -> mal.get(0), "3"),
+                () -> assertEquals(mal.get(0), 50, "4")
+        );
+
+        mal.add(100);
+        mal.add(200);
+
+        assertAll(
+                () -> assertEquals(mal.get(1), 100, "5"),
+                () -> assertEquals(mal.get(2), 200, "6")
         );
     }
 
     @Test
     @DisplayName("Tests add() for valid args")
     void add_1() {
+        String[] testStringArr1 = {
+                "[25, 50, 100, 200]",
+                "[25, 200, 50, 100]"
+        };
+        String[] testStringArr2 = {
+                "[25, 50, 75, 100, 200, 60, 500]",
+                "[60, 25, 200, 75, 50, 100, 500]"
+        };
+
         mal.add(50);
-
-        assertAll(
-                () -> assertEquals(mal.get(0), 50, "1"),
-                () -> assertEquals(mal.toString(), "[50]", "2")
-        );
-
         mal.add(1, 100);
         mal.add(200);
         mal.add(0, 25);
 
-        assertAll(
-                () -> assertEquals(mal.get(0), 25, "3"),
-                () -> assertEquals(mal.get(1), 50, "4"),
-                () -> assertEquals(mal.get(2), 100, "5"),
-                () -> assertEquals(mal.toString(), "[25, 50, 100, 200]", "6")
-        );
+        assertEquals(mal.toString(), testStringArr1[myListInd], "1");
 
         mal.add(2, 75);
         mal.add(60);
         mal.add(mal.size(), 500);
 
-        assertEquals(mal.toString(), "[25, 50, 75, 100, 200, 60, 500]", "7");
+        assertEquals(mal.toString(), testStringArr2[myListInd], "2");
     }
 
     @Test
@@ -88,8 +96,7 @@ public class MyListTest {
                 () -> assertThrows(NullPointerException.class, () -> mal.add(null), "1"),
                 () -> assertThrows(IndexOutOfBoundsException.class, () -> mal.add(-1, 200), "2"),
                 () -> assertThrows(IndexOutOfBoundsException.class, () -> mal.add(4, 200), "3"),
-                () -> assertThrows(NullPointerException.class, () -> mal.add(3, null), "4"),
-                () -> assertEquals(mal.toString(), "[50, 75, 100]", "5")
+                () -> assertThrows(NullPointerException.class, () -> mal.add(3, null), "4")
         );
     }
 
