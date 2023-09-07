@@ -1,12 +1,13 @@
 package lists.arraylist;
 
 import lists.MyList;
-import java.util.ArrayList;
+import java.util.Arrays;
 
 public class MyArrayList<E> implements MyList<E> {
     private E[] arr;
     private int size;
     private int capacity = 10;
+    private int removeInd = -1;
 
     @SuppressWarnings("unchecked")
     public MyArrayList() {
@@ -35,9 +36,6 @@ public class MyArrayList<E> implements MyList<E> {
         return this.arr[index];
     }
 
-    /**
-     * Doubles the capacity of the list
-     * */
     @SuppressWarnings("unchecked")
     private void increaseCapacity() {
         if (this.size < capacity) { return; }
@@ -50,16 +48,17 @@ public class MyArrayList<E> implements MyList<E> {
         this.arr = temp;
     }
 
+    /**
+     * NOTE: The actual function returns a boolean type, but this custom AL allows duplicates.
+     * */
     @Override
-    public boolean add(E element) {
+    public void add(E element) {
         increaseCapacity();
 
         if (element == null) { throw new NullPointerException(); }
 
         this.arr[this.size] = element;
         this.size++;
-
-        return true;
     }
 
     @Override
@@ -68,26 +67,64 @@ public class MyArrayList<E> implements MyList<E> {
 
         if (index < 0 || index > this.size) { throw new IndexOutOfBoundsException(); }
         else if (element == null) { throw new NullPointerException(); }
+        else if (index == this.size) {
+            this.arr[this.size] = element;
+            this.size++;
 
-        if (index == size) { this.arr[this.size] = element; }
+            return;
+        }
 
         for (int i = this.size - 1; i >= index; i--) { this.arr[i + 1] = this.arr[i]; }
 
         this.arr[index] = element;
+        this.size++;
     }
 
     @Override
     public E remove(int index) {
-        return null;
+        increaseCapacity();
+
+        if (isEmpty()) { return null; }
+        else if (index < 0 || index >= this.size) { throw new IndexOutOfBoundsException(); }
+
+        E ret = this.arr[index];
+
+        for (int i = index; i < size; i++) { this.arr[i] = this.arr[i + 1]; }
+
+        this.size--;
+
+        return ret;
     }
 
     @Override
     public boolean remove(E element) {
-        return false;
+        increaseCapacity();
+
+        if (isEmpty()) { return false; }
+        else if (element == null) { throw new NullPointerException(); }
+
+        if (contains(element)) {
+            for (int i = this.removeInd; i < size; i++) { this.arr[i] = this.arr[i + 1]; }
+            this.size--;
+
+            return true;
+        } else {
+            return false;
+        }
     }
 
     @Override
     public boolean contains(E element) {
+        if (isEmpty()) { return false; }
+        else if (element == null) { throw new NullPointerException(); }
+
+        for (int i = 0; i < this.size; i++) {
+            if (element.equals(this.arr[i])) {
+                this.removeInd = i;
+                return true;
+            }
+        }
+
         return false;
     }
 
@@ -108,8 +145,13 @@ public class MyArrayList<E> implements MyList<E> {
         this.size = 0;
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public String toString() {
-        return super.toString();
+        E[] temp = (E[])(new Object[this.size]);
+
+        System.arraycopy(this.arr, 0, temp, 0, this.size);
+
+        return Arrays.toString(temp);
     }
 }
