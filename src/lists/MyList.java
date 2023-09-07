@@ -15,7 +15,7 @@ public interface MyList <E> {
      * @param element The element to append
      * @return true if appending is successful, false otherwise
      * */
-    boolean add(E element);
+    void add(E element);
 
     /**
      * Inserts an element at the specified index
