@@ -1,18 +1,25 @@
-package lists.arraylist;
+package lists;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import lists.singlylinkedlist.MySinglyLinkedList;
+import lists.arraylist.MyArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class MyArrayListTest {
+public class MyListTest {
+    final Object[] initList = {
+            new MyArrayList<>(),        // 0
+            new MySinglyLinkedList<>()  // 1
+    };
     private MyArrayList<Integer> mal;
 
+    @SuppressWarnings("unchecked")
     @BeforeEach
     void init() {
-        mal = new MyArrayList<>();
+        mal = (MyArrayList<Integer>) initList[0];
     }
 
     @AfterEach

@@ -4,27 +4,31 @@ import lists.MyList;
 import java.util.Arrays;
 
 public class MyArrayList<E> implements MyList<E> {
+    private static final int DEFAULT_SIZE = 0;
+    private static final int DEFAULT_CAPACITY = 10;
+
     private E[] arr;
-    private int size;
-    private int capacity = 10;
+    private int size = DEFAULT_SIZE;
+    private int capacity = DEFAULT_CAPACITY;
     private int removeInd = -1;
 
     @SuppressWarnings("unchecked")
     public MyArrayList() {
         this.arr = (E[])(new Object[this.capacity]);
-        this.size = 0;
     }
 
     @SuppressWarnings("unchecked")
     public MyArrayList(int capacity) {
         this.arr = (E[])(new Object[capacity]);
-        this.size = 0;
         this.capacity = capacity;
     }
 
     @SuppressWarnings("unchecked")
     public MyArrayList(E[] arr) {
         this.arr = (E[])(new Object[arr.length]);
+        this.size = arr.length;
+        this.capacity = (this.capacity <= arr.length) ?
+                this.capacity * ((arr.length / this.capacity) + 1) :arr.length;
 
         System.arraycopy(arr, 0, this.arr, 0, arr.length);
     }
