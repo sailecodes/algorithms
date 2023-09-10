@@ -2,6 +2,11 @@ package lists.doublylinkedlist;
 
 import lists.MyList;
 
+/**
+ * Implementation of a doubly linked list data structure
+ *
+ * Note: head and tail are abstracted by sentinel nodes
+ * */
 public class MyDoublyLinkedList<E> implements MyList<E> {
     class MyNode {
         private E element;
@@ -29,7 +34,7 @@ public class MyDoublyLinkedList<E> implements MyList<E> {
             lead = new MyNode(null);
             follow.next = lead;
             lead.previous = follow;
-            follow = follow.next;
+            follow = lead;
         }
 
         follow.next = this.tail;
@@ -44,7 +49,7 @@ public class MyDoublyLinkedList<E> implements MyList<E> {
             lead = new MyNode(element);
             follow.next = lead;
             lead.previous = follow;
-            follow = follow.next;
+            follow = lead;
         }
 
         follow.next = this.tail;
@@ -71,14 +76,51 @@ public class MyDoublyLinkedList<E> implements MyList<E> {
         return null;
     }
 
+    private void increaseCapacity() {
+        if (this.size < this.capacity) { return; }
+
+        this.capacity *= 2;
+        MyNode lead;
+        MyNode follow = this.tail.previous;
+
+        for (int i = this.size; i < this.capacity; i++) {
+            lead = new MyNode(null);
+            follow.next = lead;
+            lead.previous = follow;
+            follow = lead;
+        }
+    }
+
+    /**
+     * Prepends the element into the doubly linked list. See MyList.java for original
+     * implementation details
+     *
+     * Runtime: O(1)
+     *
+     * @param element See MyList.java
+     * */
     @Override
     public void add(E element) {
-
+        add(0, element);
     }
 
     @Override
     public void add(int index, E element) {
+        increaseCapacity();
 
+        if (index < 0 || index > this.size) { throw new IndexOutOfBoundsException(); }
+        else if (element == null) { throw new NullPointerException(); }
+
+        MyNode temp = this.head;
+        MyNode newNode = new MyNode(element);
+
+        for (int i = 0; i < index; i++) { temp = temp.next; }
+
+        newNode.next = temp.next;
+        temp.next = newNode;
+        newNode.previous = temp;
+        newNode.next.previous = newNode;
+        this.size++;
     }
 
     @Override

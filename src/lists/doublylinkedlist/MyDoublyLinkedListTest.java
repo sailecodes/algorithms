@@ -43,4 +43,22 @@ class MyDoublyLinkedListTest {
                 () -> assertEquals(4, this.mdll.get(3))
         );
     }
+
+    @Test
+    @DisplayName("Tests add() with valid and invalid args")
+    void add() {
+        this.mdll.add(4);
+        this.mdll.add(3);
+        this.mdll.add(0, 1);
+        this.mdll.add(1, 2);
+        this.mdll.add(4, 5);
+
+        assertAll(
+                () -> assertThrows(IndexOutOfBoundsException.class, () -> this.mdll.add(-1, 5)),
+                () -> assertThrows(IndexOutOfBoundsException.class, () -> this.mdll.add(6, 5)),
+                () -> assertThrows(NullPointerException.class, () -> this.mdll.add(null)),
+                () -> assertThrows(NullPointerException.class, () -> this.mdll.add(2, null)),
+                () -> assertEquals("[1, 2, 3, 4, 5]", this.mdll.toString())
+        );
+    }
 }
