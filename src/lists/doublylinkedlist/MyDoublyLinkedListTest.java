@@ -61,4 +61,21 @@ class MyDoublyLinkedListTest {
                 () -> assertEquals("[1, 2, 3, 4, 5]", this.mdll.toString())
         );
     }
+
+    @Test
+    @DisplayName("Tests remove(int index) with valid and invalid args")
+    void remove() {
+        this.mdll = new MyDoublyLinkedList<>(new Integer[] {1,2,3,4,5});
+
+        assertAll(
+                () -> assertThrows(IndexOutOfBoundsException.class, () -> this.mdll.remove(-1)),
+                () -> assertThrows(IndexOutOfBoundsException.class, () -> this.mdll.remove(5)),
+                () -> assertEquals(1, this.mdll.remove(0)),
+                () -> assertEquals("[2, 3, 4, 5]", this.mdll.toString()),
+                () -> assertEquals(5, this.mdll.remove(3)),
+                () -> assertEquals("[2, 3, 4]", this.mdll.toString()),
+                () -> assertEquals(3, this.mdll.remove(1)),
+                () -> assertEquals("[2, 4]", this.mdll.toString())
+        );
+    }
 }

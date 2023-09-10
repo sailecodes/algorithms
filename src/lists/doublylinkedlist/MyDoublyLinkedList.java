@@ -125,11 +125,36 @@ public class MyDoublyLinkedList<E> implements MyList<E> {
 
     @Override
     public E remove(int index) {
-        return null;
+        if (index < 0 || index >= this.size) { throw new IndexOutOfBoundsException(); }
+
+        MyNode temp = this.head;
+
+        for (int i = 0;  i < index; i++) { temp = temp.next; }
+
+        E ret = temp.next.element;
+        temp.next = temp.next.next;
+        temp.next.next.previous = temp;
+        this.size--;
+
+        return ret;
     }
 
     @Override
     public boolean remove(E element) {
+        if (element == null) { throw new NullPointerException(); }
+
+        MyNode temp = this.head.next;
+
+        for (int i = 0; i < this.size; i++) {
+            if (temp.element.equals(element)) {
+                E ret = temp.next.element;
+                temp.next = temp.next.next;
+                temp.next.next.previous = temp;
+
+                return true;
+            }
+        }
+
         return false;
     }
 
