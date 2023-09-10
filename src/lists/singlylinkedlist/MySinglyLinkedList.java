@@ -93,6 +93,8 @@ public class MySinglyLinkedList<E> implements MyList<E> {
      * Prepends the element into the linked list. See MyList.java for original implementation
      * details
      *
+     * Runtime: O(1)
+     *
      * @param element See MyList.java
      * */
     @Override
@@ -101,6 +103,9 @@ public class MySinglyLinkedList<E> implements MyList<E> {
         add(0, element);
     }
 
+    /**
+     * Runtime: O(n)
+     * */
     @Override
     public void add(int index, E element) {
         increaseCapacity();
@@ -119,6 +124,9 @@ public class MySinglyLinkedList<E> implements MyList<E> {
         this.size++;
     }
 
+    /**
+     * Runtime: O(n)
+     * */
     @Override
     public E remove(int index) {
         if (index < 0 || index >= this.size) { throw new IndexOutOfBoundsException(); }
@@ -134,6 +142,9 @@ public class MySinglyLinkedList<E> implements MyList<E> {
         return ret;
     }
 
+    /**
+     * Runtime: O(n)
+     * */
     @Override
     public boolean remove(E element) {
         if (element == null) { throw new NullPointerException(); }
@@ -153,6 +164,9 @@ public class MySinglyLinkedList<E> implements MyList<E> {
         return false;
     }
 
+    /**
+     * Runtime: O(n)
+     * */
     @Override
     public boolean contains(E element) {
         if (element == null) { throw new NullPointerException(); }
@@ -168,16 +182,25 @@ public class MySinglyLinkedList<E> implements MyList<E> {
         return false;
     }
 
+    /**
+     * Runtime: O(1)
+     * */
     @Override
     public boolean isEmpty() {
         return this.size == 0;
     }
 
+    /**
+     * Runtime: O(1)
+     * */
     @Override
     public int size() {
         return this.size;
     }
 
+    /**
+     * Runtime: O(1)
+     * */
     @Override
     public void clear() {
         this.head.next = null;

@@ -163,9 +163,10 @@ public class MyArrayList<E> implements MyList<E> {
         return Arrays.toString(temp);
     }
 
-    /**
-     * Method for JUnit testing of increaseCapacity()
-     * */
+    /**                            */
+    /** For JUnit testing purposes */
+    /**                            */
+
     public int getCapacity() {
         return this.capacity;
     }
