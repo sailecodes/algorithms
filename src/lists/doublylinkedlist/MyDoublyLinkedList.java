@@ -27,18 +27,8 @@ public class MyDoublyLinkedList<E> implements MyList<E> {
     private int capacity = DEFAULT_CAPACITY;
 
     public MyDoublyLinkedList() {
-        MyNode lead;
-        MyNode follow = this.head;
-
-        for (int i = 0; i < this.capacity; i++) {
-            lead = new MyNode(null);
-            follow.next = lead;
-            lead.previous = follow;
-            follow = lead;
-        }
-
-        follow.next = this.tail;
-        this.tail.previous = follow;
+        this.head.next = this.tail;
+        this.tail.previous = this.head;
     }
 
     public MyDoublyLinkedList(E[] arr) {
@@ -111,18 +101,28 @@ public class MyDoublyLinkedList<E> implements MyList<E> {
         if (index < 0 || index > this.size) { throw new IndexOutOfBoundsException(); }
         else if (element == null) { throw new NullPointerException(); }
 
-        MyNode temp = this.head;
         MyNode newNode = new MyNode(element);
 
-        for (int i = 0; i < index; i++) { temp = temp.next; }
+        if (index == this.size) {
+            newNode.previous = this.tail.previous;
+            newNode.next = this.tail;
+            this.tail.previous.next = newNode;
+            this.tail.previous = newNode;
+        } else {
+            MyNode temp = this.head;
 
-        newNode.next = temp.next;
-        temp.next = newNode;
-        newNode.previous = temp;
-        newNode.next.previous = newNode;
+            for (int i = 0; i < index; i++) { temp = temp.next; }
+
+            newNode.next = temp.next;
+            newNode.previous = temp;
+            temp.next.previous = newNode;
+            temp.next = newNode;
+        }
+
         this.size++;
     }
 
+    // TODO: add code for this.size - 1 in remove methods (for optimization)
     @Override
     public E remove(int index) {
         if (index < 0 || index >= this.size) { throw new IndexOutOfBoundsException(); }
@@ -133,7 +133,7 @@ public class MyDoublyLinkedList<E> implements MyList<E> {
 
         E ret = temp.next.element;
         temp.next = temp.next.next;
-        temp.next.next.previous = temp;
+        temp.next.previous = temp;
         this.size--;
 
         return ret;
@@ -143,16 +143,18 @@ public class MyDoublyLinkedList<E> implements MyList<E> {
     public boolean remove(E element) {
         if (element == null) { throw new NullPointerException(); }
 
-        MyNode temp = this.head.next;
+        MyNode temp = this.head;
 
         for (int i = 0; i < this.size; i++) {
-            if (temp.element.equals(element)) {
-                E ret = temp.next.element;
+            if (temp.next.element.equals(element)) {
                 temp.next = temp.next.next;
-                temp.next.next.previous = temp;
+                temp.next.previous = temp;
+                this.size--;
 
                 return true;
             }
+
+            temp = temp.next;
         }
 
         return false;
@@ -160,6 +162,16 @@ public class MyDoublyLinkedList<E> implements MyList<E> {
 
     @Override
     public boolean contains(E element) {
+        if (element == null) { throw new NullPointerException(); }
+
+        MyNode temp = this.head.next;
+
+        for (int i = 0; i < this.size; i++) {
+            if (element.equals(temp.element)) { return true; }
+
+            temp = temp.next;
+        }
+
         return false;
     }
 
@@ -177,6 +189,8 @@ public class MyDoublyLinkedList<E> implements MyList<E> {
     public void clear() {
         this.head = new MyNode(null);
         this.tail = new MyNode(null);
+        this.head.next = this.tail;
+        this.tail.previous = this.head;
         this.size = 0;
     }
 

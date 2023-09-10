@@ -1,9 +1,10 @@
 package lists.stack;
 
-import lists.arraylist.MyArrayList;
+import lists.MyList;
+import lists.doublylinkedlist.MyDoublyLinkedList;
 
-public class MyStack<E> extends MyArrayList<E> {
-    private final MyArrayList<E> mal = new MyArrayList<>();
+public class MyStack<E> extends MyDoublyLinkedList<E> {
+    private final MyList<E> mal = new MyDoublyLinkedList<>();
 
     public MyStack() {}
 

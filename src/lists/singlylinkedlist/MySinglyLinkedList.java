@@ -2,6 +2,7 @@ package lists.singlylinkedlist;
 
 import lists.MyList;
 
+// TODO: fix constructor, redundancies, and logic
 /**
  * Implementation of the Singly Linked List data structure
  * */
@@ -147,7 +148,6 @@ public class MySinglyLinkedList<E> implements MyList<E> {
     @Override
     public boolean remove(E element) {
         if (element == null) { throw new NullPointerException(); }
-        else if (isEmpty() || (!contains(element))) { return false; }
 
         MyNode temp = this.head;
 
