@@ -19,7 +19,6 @@ class MySinglyLinkedListTest {
     @AfterEach
     void clean() {
         this.mal.clear();
-        this.mal = new MySinglyLinkedList<>();
     }
 
     @Test
