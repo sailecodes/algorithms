@@ -93,8 +93,7 @@ public class MyArrayList<E> implements MyList<E> {
     public E remove(int index) {
         increaseCapacity();
 
-        if (isEmpty()) { return null; }
-        else if (index < 0 || index >= this.size) { throw new IndexOutOfBoundsException(); }
+        if (index < 0 || index >= this.size) { throw new IndexOutOfBoundsException(); }
 
         E ret = this.arr[index];
 
@@ -109,8 +108,8 @@ public class MyArrayList<E> implements MyList<E> {
     public boolean remove(E element) {
         increaseCapacity();
 
-        if (isEmpty()) { return false; }
-        else if (element == null) { throw new NullPointerException(); }
+        if (element == null) { throw new NullPointerException(); }
+        else if (isEmpty()) { return false; }
 
         if (contains(element)) {
             for (int i = this.removeInd; i < size; i++) { this.arr[i] = this.arr[i + 1]; }
@@ -124,8 +123,8 @@ public class MyArrayList<E> implements MyList<E> {
 
     @Override
     public boolean contains(E element) {
-        if (isEmpty()) { return false; }
-        else if (element == null) { throw new NullPointerException(); }
+        if (element == null) { throw new NullPointerException(); }
+        else if (isEmpty()) { return false; }
 
         for (int i = 0; i < this.size; i++) {
             if (element.equals(this.arr[i])) {
@@ -162,5 +161,12 @@ public class MyArrayList<E> implements MyList<E> {
         System.arraycopy(this.arr, 0, temp, 0, this.size);
 
         return Arrays.toString(temp);
+    }
+
+    /**
+     * Method for JUnit testing of increaseCapacity()
+     * */
+    public int getCapacity() {
+        return this.capacity;
     }
 }

@@ -4,8 +4,6 @@ import lists.MyList;
 
 /**
  * Implementation of the Singly Linked List data structure
- *
- * Note: Allows for null values
  * */
 public class MySinglyLinkedList<E> implements MyList<E> {
     /**
@@ -59,7 +57,7 @@ public class MySinglyLinkedList<E> implements MyList<E> {
     }
 
     /**
-     * Note: Given index is valid, the method should always return a non-null value.
+     * Note: Given index is valid, the method should always return a non-null value
      * Runtime: O(n)
      * */
     @Override
@@ -123,16 +121,50 @@ public class MySinglyLinkedList<E> implements MyList<E> {
 
     @Override
     public E remove(int index) {
-        return null;
+        if (index < 0 || index >= this.size) { throw new IndexOutOfBoundsException(); }
+
+        MyNode temp = this.head;
+
+        for (int i = 0; i < index; i++) { temp = temp.next; }
+
+        E ret = temp.next.element;
+        temp.next = temp.next.next;
+        this.size--;
+
+        return ret;
     }
 
     @Override
     public boolean remove(E element) {
+        if (element == null) { throw new NullPointerException(); }
+        else if (isEmpty() || (!contains(element))) { return false; }
+
+        MyNode temp = this.head;
+
+        for (int i = 0; i < this.size; i++) {
+            if (element.equals(temp.next.element)) {
+                temp.next = temp.next.next;
+                this.size--;
+
+                return true;
+            }
+        }
+
         return false;
     }
 
     @Override
     public boolean contains(E element) {
+        if (element == null) { throw new NullPointerException(); }
+        else if (isEmpty()) { return false; }
+
+        MyNode temp = this.head.next;
+
+        for (int i = 0; i < this.size; i++) {
+            if (element.equals(temp.element)) { return true; }
+            temp = temp.next;
+        }
+
         return false;
     }
 
@@ -149,6 +181,7 @@ public class MySinglyLinkedList<E> implements MyList<E> {
     @Override
     public void clear() {
         this.head.next = null;
+        this.size = 0;
     }
 
     @Override
@@ -162,5 +195,12 @@ public class MySinglyLinkedList<E> implements MyList<E> {
         }
 
         return ret.substring(0, ret.length() - 2).concat("]");
+    }
+
+    /**
+     * Method for JUnit testing of increaseCapacity()
+     * */
+    public int getCapacity() {
+        return this.capacity;
     }
 }
