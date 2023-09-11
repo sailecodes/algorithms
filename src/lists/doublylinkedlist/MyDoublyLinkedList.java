@@ -16,6 +16,7 @@ public class MyDoublyLinkedList<E> implements MyList<E> {
         private MyNode next;
         private MyNode previous;
 
+        /** Constructors */
         public MyNode(E element) {
             this.element = element;
         }
@@ -31,6 +32,7 @@ public class MyDoublyLinkedList<E> implements MyList<E> {
     private int size = DEFAULT_SIZE;
     private int capacity = DEFAULT_CAPACITY;
 
+    /** Constructors */
     public MyDoublyLinkedList() {
         this.head.next = this.tail;
         this.tail.previous = this.head;

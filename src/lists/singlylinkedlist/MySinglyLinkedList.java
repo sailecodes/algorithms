@@ -27,6 +27,7 @@ public class MySinglyLinkedList<E> implements MyList<E> {
     private int size = DEFAULT_SIZE;
     private int capacity = DEFAULT_CAPACITY;
 
+    /** Constructors */
     public MySinglyLinkedList() {}
 
     public MySinglyLinkedList(int capacity) {

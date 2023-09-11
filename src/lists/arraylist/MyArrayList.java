@@ -17,6 +17,7 @@ public class MyArrayList<E> implements MyList<E> {
     private int capacity = DEFAULT_CAPACITY;
     private int removeInd = -1;
 
+    /** Constructors  */
     @SuppressWarnings("unchecked")
     public MyArrayList() {
         this.arr = (E[])(new Object[this.capacity]);
