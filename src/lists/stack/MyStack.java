@@ -3,7 +3,7 @@ package lists.stack;
 import lists.MyList;
 import lists.doublylinkedlist.MyDoublyLinkedList;
 
-public class MyStack<E> extends MyDoublyLinkedList<E> {
+public class MyStack<E> {
     private final MyList<E> mdll = new MyDoublyLinkedList<>();
 
     public MyStack() {}
@@ -43,7 +43,6 @@ public class MyStack<E> extends MyDoublyLinkedList<E> {
     /**                            */
 
     @SuppressWarnings("unchecked")
-    @Override
     public void printDetails() {
         ((MyDoublyLinkedList<Integer>)this.mdll).printDetails();
     }
