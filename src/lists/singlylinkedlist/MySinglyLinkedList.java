@@ -2,14 +2,12 @@ package lists.singlylinkedlist;
 
 import lists.MyList;
 
-// TODO: fix constructor, redundancies, and logic
 /**
- * Implementation of the Singly Linked List data structure
+ * Implementation of a singly linked list
+ *
+ * Note: head is abstracted by a sentinel node
  * */
 public class MySinglyLinkedList<E> implements MyList<E> {
-    /**
-     * Inner class representing the Node data structure of a Linked List
-     * */
     class MyNode {
         private E element;
         private MyNode next;
@@ -24,23 +22,9 @@ public class MySinglyLinkedList<E> implements MyList<E> {
     private int size = DEFAULT_SIZE;
     private int capacity = DEFAULT_CAPACITY;
 
-    public MySinglyLinkedList() {
-        MyNode tempNode = this.head;
-
-        for (int i = 0; i < this.capacity; i++) {
-            tempNode.next = new MyNode(null);
-            tempNode = tempNode.next;
-        }
-    }
+    public MySinglyLinkedList() {}
 
     public MySinglyLinkedList(int capacity) {
-        MyNode tempNode = this.head;
-
-        for (int i = 0; i < capacity; i++) {
-            tempNode.next = new MyNode(null);
-            tempNode = tempNode.next;
-        }
-
         this.capacity = capacity;
     }
 
@@ -53,13 +37,12 @@ public class MySinglyLinkedList<E> implements MyList<E> {
         }
 
         this.size = arr.length;
-        this.capacity = (this.capacity <= arr.length) ?
-                this.capacity * ((arr.length / this.capacity) + 1) : arr.length;
+        this.capacity = (arr.length < this.capacity) ? this.capacity :
+                this.capacity * ((arr.length / this.capacity) + 1);
     }
 
     /**
      * Note: Given index is valid, the method should always return a non-null value
-     * Runtime: O(n)
      * */
     @Override
     public E get(int index) {
@@ -75,9 +58,6 @@ public class MySinglyLinkedList<E> implements MyList<E> {
         return null;
     }
 
-    /**
-     * Runtime: O(n)
-     * */
     private void increaseCapacity() {
         if (this.size < this.capacity) { return; }
 
@@ -94,8 +74,6 @@ public class MySinglyLinkedList<E> implements MyList<E> {
      * Prepends the element into the linked list. See MyList.java for original implementation
      * details
      *
-     * Runtime: O(1)
-     *
      * @param element See MyList.java
      * */
     @Override
@@ -103,9 +81,6 @@ public class MySinglyLinkedList<E> implements MyList<E> {
         add(0, element);
     }
 
-    /**
-     * Runtime: O(n)
-     * */
     @Override
     public void add(int index, E element) {
         increaseCapacity();
@@ -124,9 +99,6 @@ public class MySinglyLinkedList<E> implements MyList<E> {
         this.size++;
     }
 
-    /**
-     * Runtime: O(n)
-     * */
     @Override
     public E remove(int index) {
         if (index < 0 || index >= this.size) { throw new IndexOutOfBoundsException(); }
@@ -142,9 +114,6 @@ public class MySinglyLinkedList<E> implements MyList<E> {
         return ret;
     }
 
-    /**
-     * Runtime: O(n)
-     * */
     @Override
     public boolean remove(E element) {
         if (element == null) { throw new NullPointerException(); }
@@ -163,9 +132,6 @@ public class MySinglyLinkedList<E> implements MyList<E> {
         return false;
     }
 
-    /**
-     * Runtime: O(n)
-     * */
     @Override
     public boolean contains(E element) {
         if (element == null) { throw new NullPointerException(); }
@@ -181,25 +147,16 @@ public class MySinglyLinkedList<E> implements MyList<E> {
         return false;
     }
 
-    /**
-     * Runtime: O(1)
-     * */
     @Override
     public boolean isEmpty() {
         return this.size == 0;
     }
 
-    /**
-     * Runtime: O(1)
-     * */
     @Override
     public int size() {
         return this.size;
     }
 
-    /**
-     * Runtime: O(1)
-     * */
     @Override
     public void clear() {
         this.head.next = null;
@@ -219,9 +176,10 @@ public class MySinglyLinkedList<E> implements MyList<E> {
         return ret.substring(0, ret.length() - 2).concat("]");
     }
 
-    /**
-     * Method for JUnit testing of increaseCapacity()
-     * */
+    /**                            */
+    /** For JUnit testing purposes */
+    /**                            */
+
     public int getCapacity() {
         return this.capacity;
     }

@@ -40,7 +40,6 @@ class MyDoublyLinkedListTest {
         );
     }
 
-    // TODO: add add_2 that doesn't start from clear
     @Test
     @DisplayName("Tests add() with valid and invalid args")
     void add() {

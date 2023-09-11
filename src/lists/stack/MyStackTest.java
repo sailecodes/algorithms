@@ -26,7 +26,7 @@ class MyStackTest {
         for (int i = 0; i < 5; i++) { this.ms.push(i); }
 
         assertThrows(NullPointerException.class, () -> this.ms.push(null));
-        assertEquals("[0, 1, 2, 3, 4]", this.ms.toString());
+        assertEquals("[4, 3, 2, 1, 0]", this.ms.toString());
     }
 
     @Test
@@ -36,7 +36,7 @@ class MyStackTest {
 
         assertAll(
                 () -> assertEquals(2, this.ms.pop()),
-                () -> assertEquals("[0, 1]", this.ms.toString()),
+                () -> assertEquals("[1, 0]", this.ms.toString()),
                 () -> assertEquals(1, this.ms.pop()),
                 () -> assertEquals("[0]", this.ms.toString()),
                 () -> assertEquals(0, this.ms.pop()),

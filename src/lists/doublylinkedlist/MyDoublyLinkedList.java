@@ -3,7 +3,7 @@ package lists.doublylinkedlist;
 import lists.MyList;
 
 /**
- * Implementation of a doubly linked list data structure
+ * Implementation of a doubly linked list
  *
  * Note: head and tail are abstracted by sentinel nodes
  * */
@@ -21,14 +21,18 @@ public class MyDoublyLinkedList<E> implements MyList<E> {
     private static final int DEFAULT_SIZE = 0;
     private static final int DEFAULT_CAPACITY = 10;
 
-    private MyNode head = new MyNode(null);
-    private MyNode tail = new MyNode(null);
+    private final MyNode head = new MyNode(null);
+    private final MyNode tail = new MyNode(null);
     private int size = DEFAULT_SIZE;
     private int capacity = DEFAULT_CAPACITY;
 
     public MyDoublyLinkedList() {
         this.head.next = this.tail;
         this.tail.previous = this.head;
+    }
+
+    public MyDoublyLinkedList(int capacity) {
+        this.capacity = capacity;
     }
 
     public MyDoublyLinkedList(E[] arr) {
@@ -122,18 +126,28 @@ public class MyDoublyLinkedList<E> implements MyList<E> {
         this.size++;
     }
 
-    // TODO: add code for this.size - 1 in remove methods (for optimization)
     @Override
     public E remove(int index) {
         if (index < 0 || index >= this.size) { throw new IndexOutOfBoundsException(); }
 
-        MyNode temp = this.head;
+        MyNode temp;
+        E ret;
 
-        for (int i = 0;  i < index; i++) { temp = temp.next; }
+        if (index == (this.size - 1)) {
+            temp = this.tail.previous.previous;
+            ret = temp.next.element;
+            temp.next = this.tail;
+            this.tail.previous = temp;
+        } else {
+            temp = this.head;
 
-        E ret = temp.next.element;
-        temp.next = temp.next.next;
-        temp.next.previous = temp;
+            for (int i = 0;  i < index; i++) { temp = temp.next; }
+
+            ret = temp.next.element;
+            temp.next = temp.next.next;
+            temp.next.previous = temp;
+        }
+
         this.size--;
 
         return ret;
@@ -187,8 +201,6 @@ public class MyDoublyLinkedList<E> implements MyList<E> {
 
     @Override
     public void clear() {
-        this.head = new MyNode(null);
-        this.tail = new MyNode(null);
         this.head.next = this.tail;
         this.tail.previous = this.head;
         this.size = 0;
@@ -196,6 +208,8 @@ public class MyDoublyLinkedList<E> implements MyList<E> {
 
     @Override
     public String toString() {
+        if (this.size == 0) { return "[]"; }
+
         StringBuilder ret = new StringBuilder("[");
         MyNode temp = this.head.next;
 
@@ -228,12 +242,16 @@ public class MyDoublyLinkedList<E> implements MyList<E> {
     }
 
     public void printDetails() {
+        if (this.size == 0) { System.out.println("Empty"); }
+
         MyNode temp = this.head.next;
 
         for (int i = 0; i < this.size; i++) {
-            System.out.println("Element: (" + temp.element + "), Previous: (" +
-                    temp.previous.element + "), Next: (" + temp.next.element + ")");
+            System.out.println("Previous: (" + temp.previous.element + "), Element: (" +
+                    temp.element + "), Next: (" + temp.next.element + ")");
             temp = temp.next;
         }
+
+        System.out.println();
     }
 }
