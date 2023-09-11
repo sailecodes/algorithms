@@ -153,8 +153,12 @@ public class MyBST {
         }
     }
 
-    /** Traversal algorithms */
-
+    /**
+     * Returns a String representation of the tree in preorder, where we begin at the root and
+     * traverse leftwards
+     *
+     * @return A String representation of the tree in preorder
+     * */
     public String preorderTraversal() {
         StringBuilder ret = new StringBuilder();
         preorderTraversalHelper(this.root, ret);
@@ -171,6 +175,12 @@ public class MyBST {
         preorderTraversalHelper(currNode.right, ret);
     }
 
+    /**
+     * Returns a String representation of the tree in inorder, where we begin with the minimum and
+     * traverse in increasing order
+     *
+     * @return A String representation of the tree in inorder
+     * */
     public String inorderTraversal() {
         StringBuilder ret = new StringBuilder();
         inorderTraversalHelper(this.root, ret);
@@ -187,6 +197,12 @@ public class MyBST {
         inorderTraversalHelper(currNode.right, ret);
     }
 
+    /**
+     * Returns a String representation of the tree in postorder, where we begin with the children and
+     * traverse upwards to the parents
+     *
+     * @return A String representation of the tree in postorder
+     * */
     public String postorderTraversal() {
         StringBuilder ret = new StringBuilder();
         postorderTraversalHelper(this.root, ret);
