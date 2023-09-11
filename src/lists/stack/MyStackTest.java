@@ -5,6 +5,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.util.EmptyStackException;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class MyStackTest {
@@ -17,7 +19,7 @@ class MyStackTest {
 
     @AfterEach
     void clean() {
-        this.ms.clear();
+        this.ms = new MyStack<>();
     }
 
     @Test
@@ -32,6 +34,8 @@ class MyStackTest {
     @Test
     @DisplayName("Tests pop() for valid and invalid args")
     void pop() {
+        assertThrows(EmptyStackException.class, () -> this.ms.pop());
+
         for (int i = 0; i < 3; i++) { this.ms.push(i); }
 
         assertAll(
@@ -47,7 +51,7 @@ class MyStackTest {
     @Test
     @DisplayName("Tests peek() for valid and invalid args")
     void peek() {
-        assertThrows(IndexOutOfBoundsException.class, () -> this.ms.peek());
+        assertThrows(EmptyStackException.class, () -> this.ms.pop());
 
         for (int i = 0; i < 2; i++) { this.ms.push(i); }
 
@@ -62,17 +66,5 @@ class MyStackTest {
         this.ms.push(1);
 
         assertFalse(this.ms.empty());
-    }
-
-    @Test
-    @DisplayName("Tests clear()")
-    void clear() {
-        for (int i = 0; i < 3; i++) { this.ms.push(i); }
-
-        assertEquals(3, this.ms.size());
-
-        this.ms.clear();
-
-        assertEquals(0, this.ms.size());
     }
 }

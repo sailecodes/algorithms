@@ -6,9 +6,9 @@ import lists.doublylinkedlist.MyDoublyLinkedList;
 import java.util.NoSuchElementException;
 
 /**
- * Description: An implementation of a Java Queue that uses a custom implementation of a
+ * Description: An implementation of the Java Queue that uses a custom implementation of a
  *              doubly linked list as the underlying data structure.
- */
+ * */
 public class MyQueue<E> {
     /** Instance variables */
     private MyList<E> mdll = new MyDoublyLinkedList<>();
