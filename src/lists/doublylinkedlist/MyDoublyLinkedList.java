@@ -3,12 +3,15 @@ package lists.doublylinkedlist;
 import lists.MyList;
 
 /**
- * Implementation of a doubly linked list
- *
- * Note: head and tail are abstracted by sentinel nodes
+ * Description: An implementation of a doubly linked list that uses sentinel nodes to abstract the
+ *              head and tail.
  * */
 public class MyDoublyLinkedList<E> implements MyList<E> {
+    /**
+     * Inner class representing a node in the list
+     * */
     class MyNode {
+        /** Instance variables */
         private E element;
         private MyNode next;
         private MyNode previous;
@@ -18,9 +21,11 @@ public class MyDoublyLinkedList<E> implements MyList<E> {
         }
     }
 
+    /** Static variables */
     private static final int DEFAULT_SIZE = 0;
     private static final int DEFAULT_CAPACITY = 10;
 
+    /** Instance variables */
     private final MyNode head = new MyNode(null);
     private final MyNode tail = new MyNode(null);
     private int size = DEFAULT_SIZE;
@@ -86,10 +91,7 @@ public class MyDoublyLinkedList<E> implements MyList<E> {
     }
 
     /**
-     * Prepends the element into the doubly linked list. See MyList.java for original
-     * implementation details
-     *
-     * Runtime: O(1)
+     * Prepends the element into the list. See MyList.java for original implementation details
      *
      * @param element See MyList.java
      * */
@@ -221,9 +223,7 @@ public class MyDoublyLinkedList<E> implements MyList<E> {
         return ret.substring(0, ret.length() - 2).concat("]");
     }
 
-    /**                            */
-    /** For JUnit testing purposes */
-    /**                            */
+    /** JUnit testing methods */
 
     public String printForwards() {
         return toString();
@@ -239,19 +239,5 @@ public class MyDoublyLinkedList<E> implements MyList<E> {
         }
 
         return ret.substring(0, ret.length() - 2).concat("]");
-    }
-
-    public void printDetails() {
-        if (this.size == 0) { System.out.println("Empty"); }
-
-        MyNode temp = this.head.next;
-
-        for (int i = 0; i < this.size; i++) {
-            System.out.println("Previous: (" + temp.previous.element + "), Element: (" +
-                    temp.element + "), Next: (" + temp.next.element + ")");
-            temp = temp.next;
-        }
-
-        System.out.println();
     }
 }

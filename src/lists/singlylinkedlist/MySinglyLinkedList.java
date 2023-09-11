@@ -3,21 +3,26 @@ package lists.singlylinkedlist;
 import lists.MyList;
 
 /**
- * Implementation of a singly linked list
- *
- * Note: head is abstracted by a sentinel node
+ * Description: An implementation of a singly linked list that uses a sentinel node to abstract
+ *              the head.
  * */
 public class MySinglyLinkedList<E> implements MyList<E> {
+    /**
+     * Inner class representing a node in the list
+     * */
     class MyNode {
+        /** Instance variables */
         private E element;
         private MyNode next;
 
         public MyNode(E element) { this.element = element; }
     }
 
+    /** Static variables */
     private static final int DEFAULT_SIZE = 0;
     private static final int DEFAULT_CAPACITY = 10;
 
+    /** Instance variables */
     private final MyNode head = new MyNode(null);
     private int size = DEFAULT_SIZE;
     private int capacity = DEFAULT_CAPACITY;
@@ -41,9 +46,6 @@ public class MySinglyLinkedList<E> implements MyList<E> {
                 this.capacity * ((arr.length / this.capacity) + 1);
     }
 
-    /**
-     * Note: Given index is valid, the method should always return a non-null value
-     * */
     @Override
     public E get(int index) {
         if (index < 0 || index >= this.size) { throw new IndexOutOfBoundsException(); }
@@ -55,6 +57,7 @@ public class MySinglyLinkedList<E> implements MyList<E> {
             temp = temp.next;
         }
 
+        // If index is valid, the method will never reach the below statement
         return null;
     }
 
@@ -71,8 +74,7 @@ public class MySinglyLinkedList<E> implements MyList<E> {
     }
 
     /**
-     * Prepends the element into the linked list. See MyList.java for original implementation
-     * details
+     * Prepends the element into the list. See MyList.java for original implementation details
      *
      * @param element See MyList.java
      * */
@@ -176,9 +178,7 @@ public class MySinglyLinkedList<E> implements MyList<E> {
         return ret.substring(0, ret.length() - 2).concat("]");
     }
 
-    /**                            */
-    /** For JUnit testing purposes */
-    /**                            */
+    /** JUnit testing methods */
 
     public int getCapacity() {
         return this.capacity;

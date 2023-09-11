@@ -4,14 +4,14 @@ import lists.MyList;
 import java.util.Arrays;
 
 /**
- * Implementation of the Java ArrayList data structure
- *
- * Note: Does not allow for null values
+ * Description: An implementation of the Java ArrayList that does not allow for null values
  * */
 public class MyArrayList<E> implements MyList<E> {
+    /** Static variables */
     private static final int DEFAULT_SIZE = 0;
     private static final int DEFAULT_CAPACITY = 10;
 
+    /** Instance variables */
     private E[] arr;
     private int size = DEFAULT_SIZE;
     private int capacity = DEFAULT_CAPACITY;
@@ -57,9 +57,6 @@ public class MyArrayList<E> implements MyList<E> {
         this.arr = temp;
     }
 
-    /**
-     * NOTE: The actual function returns a boolean type, but this custom AL allows duplicates.
-     * */
     @Override
     public void add(E element) {
         increaseCapacity();
@@ -163,9 +160,7 @@ public class MyArrayList<E> implements MyList<E> {
         return Arrays.toString(temp);
     }
 
-    /**                            */
-    /** For JUnit testing purposes */
-    /**                            */
+    /** JUnit testing methods */
 
     public int getCapacity() {
         return this.capacity;
