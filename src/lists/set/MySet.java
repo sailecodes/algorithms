@@ -3,9 +3,12 @@ package lists.set;
 import java.util.Collection;
 import java.util.Iterator;
 
-public class Set<E> implements Collection<E> {
+public class MySet<E> implements Collection<E> {
     /** Instance variables */
     private int size;
+
+    /** Constructors */
+    public MySet() {}
 
     @Override
     public int size() {

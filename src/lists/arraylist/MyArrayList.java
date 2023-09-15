@@ -2,11 +2,12 @@ package lists.arraylist;
 
 import lists.MyList;
 import java.util.Arrays;
+import java.util.Iterator;
 
 /**
  * Description: An implementation of the Java ArrayList that does not allow for null values
  * */
-public class MyArrayList<E> implements MyList<E> {
+public class MyArrayList<E> implements MyList<E>, Iterable<E> {
     /** Static variables */
     private static final int DEFAULT_SIZE = 0;
     private static final int DEFAULT_CAPACITY = 10;
@@ -46,6 +47,12 @@ public class MyArrayList<E> implements MyList<E> {
         return this.arr[index];
     }
 
+    /**
+     * Helper method that increases the capacity twofold.
+     *
+     * Note: This is called in larger intervals over time, making add() have an amortized runtime of
+     *       O(1)
+     * */
     @SuppressWarnings("unchecked")
     private void increaseCapacity() {
         if (this.size < this.capacity) { return; }
@@ -161,9 +168,36 @@ public class MyArrayList<E> implements MyList<E> {
         return Arrays.toString(temp);
     }
 
+    /**
+     * Returns an Iterator over the elements
+     *
+     * @return An Iterator object
+     */
+    @Override
+    public Iterator<E> iterator() {
+        return null;
+    }
+
     /** JUnit testing methods */
 
     public int getCapacity() {
         return this.capacity;
+    }
+}
+
+public class MyALIterator<E> implements Iterator<E> {
+    @Override
+    public boolean hasNext() {
+        return false;
+    }
+
+    @Override
+    public Object next() {
+        return null;
+    }
+
+    @Override
+    public void remove() {
+        Iterator.super.remove();
     }
 }
