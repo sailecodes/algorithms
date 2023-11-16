@@ -1,7 +1,5 @@
 package sorts.quicksort;
 
-import sorts.mergesort.MergeSort;
-
 import java.util.Arrays;
 import java.util.Random;
 
