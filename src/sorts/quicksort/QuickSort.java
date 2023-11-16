@@ -3,6 +3,7 @@ package sorts.quicksort;
 import sorts.mergesort.MergeSort;
 
 import java.util.Arrays;
+import java.util.Random;
 
 public class QuickSort {
     public static void main(String[] args) {
@@ -20,6 +21,7 @@ public class QuickSort {
     }
 
     private int partition(int[] arr, int start, int end) {
+        randomizePivot(arr, start, end);
         int pivot = arr[start];
         int left = start;
         int right = end;
@@ -34,6 +36,15 @@ public class QuickSort {
         swap(arr, start, right);
 
         return right;
+    }
+
+    private void randomizePivot(int[] arr, int start, int end) {
+        Random rand= new Random();
+
+        int pivotInd = rand.nextInt(end - start) + start;
+        int tmp = arr[pivotInd];
+        arr[pivotInd] = arr[start];
+        arr[start] = tmp;
     }
 
     private void swap(int[] arr, int ind1, int ind2) {
