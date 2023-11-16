@@ -7,7 +7,7 @@ import java.util.Iterator;
 /**
  * Description: An implementation of the Java ArrayList that does not allow for null values
  * */
-public class MyArrayList<E> implements MyList<E>, Iterable<E> {
+public class MyArrayList<E> implements MyList<E> {
     /** Static variables */
     private static final int DEFAULT_SIZE = 0;
     private static final int DEFAULT_CAPACITY = 10;
@@ -168,36 +168,9 @@ public class MyArrayList<E> implements MyList<E>, Iterable<E> {
         return Arrays.toString(temp);
     }
 
-    /**
-     * Returns an Iterator over the elements
-     *
-     * @return An Iterator object
-     */
-    @Override
-    public Iterator<E> iterator() {
-        return null;
-    }
-
     /** JUnit testing methods */
 
     public int getCapacity() {
         return this.capacity;
-    }
-}
-
-public class MyALIterator<E> implements Iterator<E> {
-    @Override
-    public boolean hasNext() {
-        return false;
-    }
-
-    @Override
-    public Object next() {
-        return null;
-    }
-
-    @Override
-    public void remove() {
-        Iterator.super.remove();
     }
 }
